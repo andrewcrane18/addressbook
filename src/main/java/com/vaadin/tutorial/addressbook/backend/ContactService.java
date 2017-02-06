@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 // class and nothing Vaadin specific.
 public class ContactService {
 
-    // Create dummy data by randomly combining first and last names
+    // Create dummy data by randomly combining first and last names and tasks
     static String[] fnames = { "Andrew", "Alice", "Tom", "Mike", "Olivia",
             "Nina", "Alex", "Rita", "Dan", "Umberto", "Henrik", "Rene", "Lisa",
             "Linda", "Timothy", "Daniel", "Brian", "George", "Scott",
@@ -24,6 +24,9 @@ public class ContactService {
             "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor",
             "Anderson", "Thomas", "Jackson", "White", "Harris", "Martin",
             "Thompson", "Young", "King", "Robinson" };
+    static String[] tasks = {"Begin developping UI", "Begin Implementing database", "Design test for UI",
+    		"Design test for database", "Desing test for creating contacts", "Implement logic for creating contacts"};
+   
 
     private static ContactService instance;
 
@@ -33,6 +36,7 @@ public class ContactService {
             final ContactService contactService = new ContactService();
 
             Random r = new Random(0);
+            Calendar today = Calendar.getInstance();
             Calendar cal = Calendar.getInstance();
             for (int i = 0; i < 100; i++) {
                 Contact contact = new Contact();
@@ -43,7 +47,14 @@ public class ContactService {
                 contact.setPhone("+ 358 555 " + (100 + r.nextInt(900)));
                 cal.set(1930 + r.nextInt(70),
                         r.nextInt(11), r.nextInt(28));
+                contact.setTask(tasks[r.nextInt(tasks.length)]);
                 contact.setBirthDate(cal.getTime());
+                cal.set(2016 ,
+                        r.nextInt(11), r.nextInt(30));
+                contact.setStartDate(cal.getTime());
+                cal.set(2017,
+                        r.nextInt(11), r.nextInt(30));
+                contact.setEndDate(cal.getTime());
                 contactService.save(contact);
             }
             instance = contactService;

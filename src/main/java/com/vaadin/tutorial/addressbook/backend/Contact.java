@@ -16,13 +16,33 @@ import java.util.Date;
 public class Contact implements Serializable, Cloneable {
 
     private Long id;
-
     private String firstName = "";
     private String lastName = "";
     private String phone = "";
     private String email = "";
     private Date birthDate;
+    private String task;
+    private Date startDate;
+    private Date endDate;
 
+    public String getTask(){
+    	return task;
+    }
+    public void setTask(String task){
+    	this.task=task;
+    }
+    public Date getStartDate(){
+    	return startDate;
+    }
+    public void setStartDate(Date startDate){
+    	this.startDate=startDate;
+    }
+    public Date getEndDate(){
+    	return endDate;
+    }
+    public void setEndDate(Date endDate){
+    	this.endDate=endDate;
+    }
     public Long getId() {
         return id;
     }
@@ -84,7 +104,7 @@ public class Contact implements Serializable, Cloneable {
     public String toString() {
         return "Contact{" + "id=" + id + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", phone=" + phone + ", email="
-                + email + ", birthDate=" + birthDate + '}';
+                + email + ", birthDate=" + birthDate + ",startDate="+startDate+"task= "+task+ '}';
     }
 
 }

@@ -22,7 +22,8 @@ import com.vaadin.v7.ui.TextField;
  * with @PropertyId annotation.
  */
 public class ContactForm extends FormLayout {
-
+	
+	Button remove = new Button("Delete", this::remove);
     Button save = new Button("Save", this::save);
     Button cancel = new Button("Cancel", this::cancel);
     TextField firstName = new TextField("First name");
@@ -30,6 +31,9 @@ public class ContactForm extends FormLayout {
     TextField phone = new TextField("Phone");
     TextField email = new TextField("Email");
     DateField birthDate = new DateField("Birth date");
+    TextField task = new TextField("Task given");
+    DateField startDate = new DateField("Start date");
+    DateField endDate = new DateField("End date");
 
     Contact contact;
 
@@ -57,10 +61,10 @@ public class ContactForm extends FormLayout {
         setSizeUndefined();
         setMargin(true);
 
-        HorizontalLayout actions = new HorizontalLayout(save, cancel);
+        HorizontalLayout actions = new HorizontalLayout(save, cancel, remove);
         actions.setSpacing(true);
 
-        addComponents(actions, firstName, lastName, phone, email, birthDate);
+        addComponents(actions, firstName, lastName, phone, email, birthDate, task, startDate, endDate);
     }
 
     /*
@@ -90,7 +94,10 @@ public class ContactForm extends FormLayout {
             // Validation exceptions could be shown here
         }
     }
-
+    public void remove(Button.ClickEvent event){
+    	getUI().service.delete(this.contact);
+    	getUI().refreshContacts();
+    }
     public void cancel(Button.ClickEvent event) {
         // Place to call business logic.
         Notification.show("Cancelled", Type.TRAY_NOTIFICATION);
@@ -100,7 +107,7 @@ public class ContactForm extends FormLayout {
     void edit(Contact contact) {
         this.contact = contact;
         if (contact != null) {
-            // Bind the properties of the contact POJO to fiels in this form
+            // Bind the properties of the contact POJO to fields in this form
             formFieldBindings = BeanFieldGroup.bindFieldsBuffered(contact,
                     this);
             firstName.focus();
